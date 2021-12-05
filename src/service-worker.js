@@ -1,13 +1,16 @@
 self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-// registerRoute(
-//     ({url}) => url.pathname.startsWith(`/users/${id}/posts`),
-//     new CacheFirst()
-// )
+console.log('You are using service-worker');
 
-console.log('Hello from service-worker.js');
-
+workbox.core.setCacheNameDetails({
+    prefix: 'My-cache',
+    precache: 'precache',
+    runtime: 'runtime',
+});
+/**
+ * caches images
+ */
 workbox.routing.registerRoute(
     new RegExp('\.(png|svg|jpg|jpeg)$'),
     workbox.strategies.cacheFirst({
@@ -21,6 +24,19 @@ workbox.routing.registerRoute(
         ]
     })
 );
-
-
-
+/**
+ * caches articles
+ */
+workbox.routing.registerRoute(
+    new RegExp('https:\/\/jsonplaceholder\.typicode\.com\/users\/[1-9]*\/posts'),
+    workbox.strategies.cacheFirst({
+        cacheName: 'My-cache-Posts',
+        plugins: [
+            new workbox.expiration.Plugin({
+                maxAgeSeconds: 60 * 60 * 24 * 7,
+                maxEntries: 50,
+                purgeOnQuotaError: true
+            })
+        ]
+    })
+);

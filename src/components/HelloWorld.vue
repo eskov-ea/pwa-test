@@ -1,8 +1,13 @@
 <template>
   <div class="hello">
-    <div class="accordion_container">
-      <p>It is a new brand image</p>
-      <img src="http://witsvuvuzela.com/wp-content/uploads/2016/02/CENSORED.svg_.png" alt="">
+    <div class="image_container">
+      <p>Чтобы {{this.showImage ? 'скрыть' : 'показать'}} картинку - жмякни кнопку</p>
+      <button class="image_btn" @click="imageToggle">{{this.showImage ? 'Спрятать' : 'Показать'}}</button>
+      <div class="image_wrapper">
+        <img class="image"
+          :class="this.showImage ? 'image_show' : 'image_hide'"
+           src="../assets/CENSORED.svg_.png" alt="">
+      </div>
     </div>
     <div class="input_data">
       <h1
@@ -52,12 +57,16 @@ export default {
       isLoading: false,
       isActive: true,
       userId: '',
-      posts : []
+      posts : [],
+      showImage: false
     }
   },
   methods:{
     ...mapGetters(["GET_LAST_USER_ID"]),
     ...mapMutations(["SAVE_LAST_USER_ID"]),
+    imageToggle(){
+      this.showImage = ! this.showImage
+    },
     async fetchPosts(id){
       if(!id) {
         alert('Введите id пользователя!')
@@ -84,11 +93,52 @@ export default {
 </script>
 
 <style scoped>
-img{
+.image_btn{
+  width: 300px;
+  height: 60px;
+  background-color: rgba(250, 250, 250, 1);
+  color: #42b983;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border-radius: 10px;
+  border: 5px solid #42b983;
+  transition: all 0.5s ease 0s;
+  margin: 10px;
+}
+.image_wrapper{
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+}
+.image_btn:hover{
+  background-color: rgba(66, 185, 131, 0.1);
+  color: #3ca274;
+  transform: scale(1.05);
+  transition: all 0.5s ease 0s;
+  cursor: pointer;
+}
+.image{
+  position: absolute;
   max-width: 100%;
+  left: 0;
+  top: 0;
+}
+.image_hide{
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s ease;
+}
+.image_show{
+  opacity: 1;
+  visibility: visible;
+  transition: all 0.4s ease;
+  position: relative;
 }
 .hello{
-  width: 600px;
+  width: 100%;
+  max-width: 600px;
   margin: 0 auto;
 }
 .lab{
@@ -100,7 +150,8 @@ img{
 .notification{
   opacity: 1;
   visibility: visible;
-  width: 500px;
+  width: 100%;
+  max-width: 500px;
   height: 150px;
   margin: 0 auto 30px auto;
   display: flex;
@@ -124,13 +175,13 @@ img{
   padding: 0;
 }
 .item{
-  width: 500px;
+  width: 100%;
+  max-width: 500px;
   margin: 20px auto;
   background-color: #ebf1ff;
   padding: 10px;
   text-align: left;
   border-radius: 10px;
-
 }
 h3 {
   margin: 40px 0 0;
@@ -145,5 +196,33 @@ li {
 }
 a {
   color: #42b983;
+}
+.container{
+  margin-bottom: 100px;
+}
+.input_data input{
+  height: 25px;
+  margin: 5px 0;
+}
+.input_data button{
+  height: 31px;
+  margin: 5px 0;
+}
+@media screen and (max-width: 768px) {
+  .image_btn{
+    width: 200px;
+    font-size: 14px;
+    height: 40px;
+  }
+  .notification{
+    width: 100%;
+    max-width: 400px;
+    height: 100px;
+    margin: 0 auto 10px auto;
+    font-size: 16px;
+  }
+  .note{
+    font-size: 12px;
+  }
 }
 </style>
