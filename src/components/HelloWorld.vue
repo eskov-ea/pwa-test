@@ -1,6 +1,7 @@
 <template>
   <div class="hello">
     <div class="accordion_container">
+      <p>It is a new brand image</p>
       <img src="http://witsvuvuzela.com/wp-content/uploads/2016/02/CENSORED.svg_.png" alt="">
     </div>
     <div class="input_data">
