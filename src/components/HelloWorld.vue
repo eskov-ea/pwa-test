@@ -1,12 +1,15 @@
 <template>
   <div class="hello">
-
+    <div class="accordion_container">
+      <img src="http://witsvuvuzela.com/wp-content/uploads/2016/02/CENSORED.svg_.png" alt="">
+    </div>
     <div class="input_data">
       <h1
         :class="this.GET_LAST_USER_ID() && this.isActive ? 'notification' : 'non_active'"
       >
         Восстановленны данные с последнего посещения. id пользователя: {{GET_LAST_USER_ID()}}
       </h1>
+
       <p class="lab">Введите id пользователя, чтобы загрузить его посты:</p>
       <p class="note">*Доступные пользователь с номером 1 - 10</p>
       <input v-model="this.userId" type="number">
@@ -39,6 +42,7 @@ import {mapGetters, mapMutations} from "vuex";
 
 export default {
   name: 'HelloWorld',
+  components: {},
   props: {
     msg: String
   },
@@ -79,6 +83,9 @@ export default {
 </script>
 
 <style scoped>
+img{
+  max-width: 100%;
+}
 .hello{
   width: 600px;
   margin: 0 auto;
