@@ -82,7 +82,9 @@ export default {
     }
   },
   created() {
-    this.fetchPosts(this.GET_LAST_USER_ID())
+    if(this.GET_LAST_USER_ID()) {
+      this.fetchPosts(this.GET_LAST_USER_ID())
+    }
   },
   mounted(){
     setTimeout( () => {
@@ -203,6 +205,7 @@ a {
 .input_data input{
   height: 25px;
   margin: 5px 0;
+  margin-left: 10px;
 }
 .input_data button{
   height: 31px;
